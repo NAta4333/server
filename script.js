@@ -357,6 +357,60 @@ document.addEventListener('DOMContentLoaded', function() {
     rippleStyleSheet.textContent = rippleStyles;
     document.head.appendChild(rippleStyleSheet);
 
+    // Открытие модальных окон
+    const profileBtn = document.getElementById('profileBtn');
+    if (profileBtn) {
+        profileBtn.addEventListener('click', () => {
+            document.getElementById('profileModal').style.display = 'flex';
+        });
+    }
+    document.querySelectorAll('.close-modal').forEach(btn => {
+        btn.addEventListener('click', () => {
+            btn.closest('.modal').style.display = 'none';
+        });
+    });
+    // Переключение вкладок
+    function setupTabs(modalId) {
+        const modal = document.getElementById(modalId);
+        if (!modal) return;
+        modal.querySelectorAll('.modal-tabs .tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                modal.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                modal.querySelectorAll('.tab-content').forEach(tc => tc.style.display = 'none');
+                modal.querySelector(`#${tab.dataset.tab}Tab`).style.display = 'block';
+            });
+        });
+    }
+    setupTabs('profileModal');
+    setupTabs('authModal');
+    // Открытие окна авторизации если не авторизован (пример)
+    if (!localStorage.getItem('userToken')) {
+        document.getElementById('authModal').style.display = 'flex';
+        if (profileBtn) profileBtn.style.display = 'none';
+    } else {
+        if (profileBtn) profileBtn.style.display = 'block';
+    }
+    // Пример отправки данных на сервер (замените на свои PHP эндпоинты)
+    document.getElementById('loginSubmit').onclick = async function() {
+        // fetch('/login.php', {method:'POST',body:...})
+        localStorage.setItem('userToken', 'demoToken');
+        document.getElementById('authModal').style.display = 'none';
+        if (profileBtn) profileBtn.style.display = 'block';
+    };
+    document.getElementById('registerSubmit').onclick = async function() {
+        // fetch('/register.php', {method:'POST',body:...})
+        localStorage.setItem('userToken', 'demoToken');
+        document.getElementById('authModal').style.display = 'none';
+        if (profileBtn) profileBtn.style.display = 'block';
+    };
+    document.getElementById('logoutBtn').onclick = function() {
+        localStorage.removeItem('userToken');
+        document.getElementById('profileModal').style.display = 'none';
+        document.getElementById('authModal').style.display = 'flex';
+        if (profileBtn) profileBtn.style.display = 'none';
+    };
+
     // Console message for developers
     console.log('%cEXT - External Roblox Software', 'color: #6366f1; font-size: 20px; font-weight: bold;');
     console.log('%cBuilt with modern web technologies ⚡', 'color: #ec4899; font-size: 14px;');

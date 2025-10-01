@@ -47,9 +47,9 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Add background when scrolled
         if (scrollTop > 50) {
-            navbar.style.background = 'rgba(15, 23, 42, 0.98)';
+            navbar.style.background = 'rgba(0, 0, 0, 1)';
         } else {
-            navbar.style.background = 'rgba(15, 23, 42, 0.95)';
+            navbar.style.background = 'rgba(0, 0, 0, 0.98)';
         }
         
         lastScrollTop = scrollTop;

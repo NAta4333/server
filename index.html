@@ -145,6 +145,66 @@
         </div>
     </section>
 
+    <button id="profileBtn" class="btn btn-secondary" style="position:fixed;bottom:32px;right:32px;z-index:999;">Профиль</button>
+
+    <!-- Модальное окно профиля -->
+    <div id="profileModal" class="modal" style="display:none;">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Личный профиль</h3>
+          <button class="close-modal">&times;</button>
+        </div>
+        <div class="modal-tabs">
+          <button class="tab active" data-tab="main">Профиль</button>
+          <button class="tab" data-tab="social">Привязки</button>
+          <button class="tab" data-tab="hwid">HWID</button>
+        </div>
+        <div class="tab-content" id="mainTab">
+          <label>Имя: <input id="profileName" type="text"></label>
+          <label>Email: <input id="profileEmail" type="email"></label>
+          <button id="saveProfile" class="btn btn-primary">Сохранить</button>
+        </div>
+        <div class="tab-content" id="socialTab" style="display:none;">
+          <label>Discord: <input id="profileDiscord" type="text"></label>
+          <label>Telegram: <input id="profileTelegram" type="text"></label>
+          <button id="saveSocial" class="btn btn-primary">Сохранить</button>
+        </div>
+        <div class="tab-content" id="hwidTab" style="display:none;">
+          <label>HWID: <input id="profileHWID" type="text"></label>
+          <button id="changeHWID" class="btn btn-primary">Сменить HWID</button>
+        </div>
+        <button id="logoutBtn" class="btn btn-secondary" style="margin-top:1rem;">Выйти</button>
+      </div>
+    </div>
+
+    <!-- Модальное окно регистрации/входа -->
+    <div id="authModal" class="modal" style="display:none;">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Вход / Регистрация</h3>
+          <button class="close-modal">&times;</button>
+        </div>
+        <div class="modal-tabs">
+          <button class="tab active" data-tab="login">Вход</button>
+          <button class="tab" data-tab="register">Регистрация</button>
+        </div>
+        <div class="tab-content" id="loginTab">
+          <input type="text" placeholder="Имя пользователя" id="loginUsername">
+          <input type="password" placeholder="Пароль" id="loginPassword">
+          <button id="loginSubmit" class="btn btn-primary">Войти</button>
+        </div>
+        <div class="tab-content" id="registerTab" style="display:none;">
+          <input type="text" placeholder="Имя пользователя" id="registerUsername">
+          <input type="password" placeholder="Пароль" id="registerPassword">
+          <input type="text" placeholder="Email" id="registerEmail">
+          <input type="text" placeholder="HWID" id="registerHWID">
+          <input type="text" placeholder="Discord" id="registerDiscord">
+          <input type="text" placeholder="Telegram" id="registerTelegram">
+          <button id="registerSubmit" class="btn btn-primary">Зарегистрироваться</button>
+        </div>
+      </div>
+    </div>
+
     <footer class="footer">
         <div class="container">
             <div class="footer-content">

@@ -81,7 +81,6 @@ document.addEventListener('DOMContentLoaded', function() {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('animate');
-                
                 // Animate counters when stats section is visible
                 if (entry.target.classList.contains('stats')) {
                     const statNumbers = entry.target.querySelectorAll('.stat-number');
@@ -89,11 +88,6 @@ document.addEventListener('DOMContentLoaded', function() {
                         const target = parseInt(statNumber.getAttribute('data-target'));
                         animateCounter(statNumber, target);
                     });
-                }
-                
-                // Animate feature cards
-                if (entry.target.classList.contains('feature-card')) {
-                    entry.target.style.animation = 'fadeInUp 0.6s ease-out forwards';
                 }
             }
         });
@@ -268,8 +262,8 @@ document.addEventListener('DOMContentLoaded', function() {
         closeBtn.addEventListener('click', () => {
             modal.style.animation = 'fadeOut 0.3s ease-out forwards';
             setTimeout(() => {
-                document.body.removeChild(modal);
-                document.head.removeChild(styleSheet);
+                if (document.body.contains(modal)) document.body.removeChild(modal);
+                if (document.head.contains(styleSheet)) document.head.removeChild(styleSheet);
             }, 300);
         });
 
@@ -286,18 +280,19 @@ document.addEventListener('DOMContentLoaded', function() {
         const scrolled = window.pageYOffset;
         const hero = document.querySelector('.hero');
         if (hero) {
-            hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+            hero.style.transform = `translateY(${scrolled * 0.2}px)`;
         }
     });
 
     // Add hover effects to feature cards
     document.querySelectorAll('.feature-card').forEach(card => {
         card.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-10px) scale(1.02)';
+            this.style.transform = 'translateY(-10px) scale(1.04)';
+            this.style.boxShadow = '0 20px 40px rgba(30,64,175,0.35)';
         });
-        
         card.addEventListener('mouseleave', function() {
             this.style.transform = 'translateY(0) scale(1)';
+            this.style.boxShadow = '0 8px 32px rgba(30,64,175,0.15)';
         });
     });
 
